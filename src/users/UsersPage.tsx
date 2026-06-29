@@ -3,9 +3,9 @@ import {
   Badge,
   Box,
   Button,
+  CloseButton,
   Dialog,
   Field,
-  Heading,
   HStack,
   Input,
   Portal,
@@ -18,12 +18,13 @@ import { create } from "@bufbuild/protobuf";
 import { userClient } from "../lib/clients";
 import { toaster } from "../components/Toaster";
 import { errMessage } from "../lib/errors";
-import { RoleSelect } from "../components/RoleSelect";
+import { RolePicker } from "../components/RolePicker";
 import { roleLabel, statusLabel } from "../lib/roles";
 import { Role } from "../gen/role_base/v1/role_pb";
 import { UserSchema, UserStatus, type User } from "../gen/user_iface/v2/v2_user_pb";
 import { useTeam } from "../team/TeamContext";
 import { TeamScopeGate } from "../team/TeamScopeGate";
+import { PageHeader } from "../components/PageHeader";
 import { CreateUserDialog } from "./CreateUserDialog";
 import { EditUserDialog } from "./EditUserDialog";
 import { TeamMemberDialog } from "./TeamMemberDialog";
@@ -132,28 +133,25 @@ export function UsersPage() {
 
   return (
     <Stack gap={6}>
-      <HStack justify="space-between">
-        <Heading size="lg">Users</Heading>
-        <HStack>
-          <Button
-            colorPalette="brand"
-            disabled={!currentTeam}
-            onClick={() => setCreateOpen(true)}
-          >
-            Create user
-          </Button>
-          <Button
-            variant="outline"
-            disabled={!currentTeam}
-            onClick={() => {
-              setMemberPreset(null);
-              setMemberOpen(true);
-            }}
-          >
-            Add member
-          </Button>
-        </HStack>
-      </HStack>
+      <PageHeader>
+        <Button
+          colorPalette="brand"
+          disabled={!currentTeam}
+          onClick={() => setCreateOpen(true)}
+        >
+          Create user
+        </Button>
+        <Button
+          variant="outline"
+          disabled={!currentTeam}
+          onClick={() => {
+            setMemberPreset(null);
+            setMemberOpen(true);
+          }}
+        >
+          Add member
+        </Button>
+      </PageHeader>
 
       <TeamScopeGate>
       <HStack gap={4} align="flex-end" wrap="wrap">
@@ -167,7 +165,9 @@ export function UsersPage() {
         </Field.Root>
         <Field.Root width="220px">
           <Field.Label>Role</Field.Label>
-          <RoleSelect value={roleFilter} onChange={setRoleFilter} includeAll />
+          {/* Filter lists every role (no teamType): a member may legitimately hold a
+              role outside this team's type, and the filter must be able to reach it. */}
+          <RolePicker value={roleFilter} onChange={setRoleFilter} includeAll />
         </Field.Root>
         <Button onClick={() => void load(1)} loading={loading}>
           Load
@@ -326,7 +326,9 @@ export function UsersPage() {
                   Delete
                 </Button>
               </Dialog.Footer>
-              <Dialog.CloseTrigger />
+              <Dialog.CloseTrigger asChild>
+                <CloseButton size="sm" />
+              </Dialog.CloseTrigger>
             </Dialog.Content>
           </Dialog.Positioner>
         </Portal>

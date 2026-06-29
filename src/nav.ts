@@ -1,13 +1,21 @@
 import {
+  AllUsersIcon,
   BalanceIcon,
   GeneralIcon,
+  HomeIcon,
   InboundIcon,
   IncomingIcon,
+  InventoryIcon,
   InvoiceIcon,
-  OutboundIcon,
+  OpnameIcon,
+  OrderIcon,
   OutgoingIcon,
+  PlacementsIcon,
   ProductIcon,
+  RestockIcon,
+  ReturnIcon,
   SettingsIcon,
+  TeamIcon,
   UsersIcon,
   type IconComponent,
 } from "./components/icons";
@@ -66,24 +74,73 @@ export function isPathAllowed(pathname: string, teamType: TeamType): boolean {
   );
 }
 
+// One step in a breadcrumb trail. `path` omitted = non-clickable (e.g. a group label,
+// which has no route of its own).
+export interface Crumb {
+  label: string;
+  path?: string;
+}
+
+// The leaf entry whose path best matches a route (deepest match wins), plus its parent
+// group if it lives in one.
+function matchLeaf(
+  pathname: string,
+): { group?: NavGroup; leaf: NavLeaf } | undefined {
+  let best: { group?: NavGroup; leaf: NavLeaf } | undefined;
+  const consider = (leaf: NavLeaf, group?: NavGroup) => {
+    if (pathname !== leaf.path && !pathname.startsWith(leaf.path + "/")) return;
+    if (!best || leaf.path.length > best.leaf.path.length) best = { group, leaf };
+  };
+  for (const item of navItems) {
+    if ("children" in item) item.children.forEach((c) => consider(c, item));
+    else consider(item);
+  }
+  return best;
+}
+
 // Title for the current route, derived from the master nav entries (deepest match wins).
 export function pageTitle(pathname: string): string {
-  const leaves = navItems.flatMap((i) => ("children" in i ? i.children : [i]));
-  const match = leaves
-    .filter((l) => pathname === l.path || pathname.startsWith(l.path + "/"))
-    .sort((a, b) => b.path.length - a.path.length)[0];
-  return match?.label ?? "";
+  return matchLeaf(pathname)?.leaf.label ?? "";
+}
+
+// Breadcrumb trail for a route: [group, page] when the page is inside a group, else just
+// [page]. The group crumb has no `path` (groups aren't routable). Empty when nothing
+// matches — detail/sub-pages supply their own trail via <PageHeader breadcrumb=...>.
+export function breadcrumbFor(pathname: string): Crumb[] {
+  const match = matchLeaf(pathname);
+  if (!match) return [];
+  const trail: Crumb[] = [];
+  if (match.group) trail.push({ label: match.group.label });
+  trail.push({ label: match.leaf.label, path: match.leaf.path });
+  return trail;
 }
 
 // Master menu (source of truth). Add a page here + a route in router.tsx.
 // `teamTypes` scopes an entry to specific team types; omit it for all-types entries.
 export const navItems: NavEntry[] = [
-  // Common to every team type (untagged).
-  { label: "Users", path: "/users", icon: UsersIcon },
+  // Home — untagged, so it shows for every team type and is the default landing.
+  { label: "Home", path: "/home", icon: HomeIcon },
   // Warehouse only — initial stubs.
   { label: "Product", path: "/product", icon: ProductIcon, teamTypes: [TeamType.WAREHOUSE] },
-  { label: "Inbound", path: "/inbound", icon: InboundIcon, teamTypes: [TeamType.WAREHOUSE] },
-  { label: "Outbound", path: "/outbound", icon: OutboundIcon, teamTypes: [TeamType.WAREHOUSE] },
+  {
+    label: "Inventory",
+    icon: InventoryIcon,
+    teamTypes: [TeamType.WAREHOUSE],
+    children: [
+      { label: "Placement", path: "/inventory/placements", icon: PlacementsIcon },
+      { label: "Opname", path: "/inventory/opname", icon: OpnameIcon },
+    ],
+  },
+  {
+    label: "Inbound",
+    icon: InboundIcon,
+    teamTypes: [TeamType.WAREHOUSE],
+    children: [
+      { label: "Restock", path: "/inbound/restock", icon: RestockIcon },
+      { label: "Return", path: "/inbound/return", icon: ReturnIcon },
+    ],
+  },
+  { label: "Order", path: "/order", icon: OrderIcon, teamTypes: [TeamType.WAREHOUSE] },
   // Selling only.
   {
     label: "Invoice",
@@ -95,7 +152,12 @@ export const navItems: NavEntry[] = [
       { label: "Balance Log", path: "/balance-log", icon: BalanceIcon },
     ],
   },
-  // Common to every team type (untagged).
+  // Admin only — manage all teams and their members.
+  { label: "Team", path: "/team", icon: TeamIcon, teamTypes: [TeamType.ADMIN] },
+  // Common to every team type (untagged) — Users sits just before Settings.
+  { label: "My User", path: "/users", icon: UsersIcon },
+  // Admin only — directory of all users across teams.
+  { label: "All User", path: "/all-users", icon: AllUsersIcon, teamTypes: [TeamType.ADMIN] },
   {
     label: "Settings",
     icon: SettingsIcon,

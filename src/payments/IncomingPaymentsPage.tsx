@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useState } from "react";
 import {
   Button,
+  CloseButton,
   Dialog,
   Field,
-  Heading,
   HStack,
   Portal,
   Stack,
@@ -99,8 +99,6 @@ export function IncomingPaymentsPage() {
 
   return (
     <Stack gap={6}>
-      <Heading size="lg">Incoming Payments</Heading>
-
       <TeamScopeGate>
         <HStack gap={4} align="flex-end" wrap="wrap">
           <Field.Root width="240px">
@@ -168,7 +166,9 @@ export function IncomingPaymentsPage() {
                   {action?.type === "accept" ? "Accept" : "Reject"}
                 </Button>
               </Dialog.Footer>
-              <Dialog.CloseTrigger />
+              <Dialog.CloseTrigger asChild>
+                <CloseButton size="sm" />
+              </Dialog.CloseTrigger>
             </Dialog.Content>
           </Dialog.Positioner>
         </Portal>

@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
-import { Button, Field, Heading, HStack, Stack } from "@chakra-ui/react";
+import { Button, Field, HStack, Stack } from "@chakra-ui/react";
 import { invoiceClient } from "../lib/clients";
+import { PageHeader } from "../components/PageHeader";
 import { toaster } from "../components/Toaster";
 import { errMessage } from "../lib/errors";
 import { EnumSelect } from "../components/EnumSelect";
@@ -59,8 +60,7 @@ export function OutgoingPaymentsPage() {
 
   return (
     <Stack gap={6}>
-      <HStack justify="space-between">
-        <Heading size="lg">Outgoing Payments</Heading>
+      <PageHeader>
         <Button
           colorPalette="brand"
           disabled={!currentTeam}
@@ -68,7 +68,7 @@ export function OutgoingPaymentsPage() {
         >
           Create payment
         </Button>
-      </HStack>
+      </PageHeader>
 
       <TeamScopeGate>
         <HStack gap={4} align="flex-end" wrap="wrap">

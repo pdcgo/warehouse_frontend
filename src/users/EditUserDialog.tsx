@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button, Dialog, Field, Input, Portal, Stack } from "@chakra-ui/react";
+import { Button, CloseButton, Dialog, Field, Input, Portal, Stack } from "@chakra-ui/react";
 import { userClient } from "../lib/clients";
 import { toaster } from "../components/Toaster";
 import { errMessage } from "../lib/errors";
@@ -14,17 +14,13 @@ interface Props {
 
 export function EditUserDialog({ open, onOpenChange, onSaved, user }: Props) {
   const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
   const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (user) {
       setEmail(user.email);
-      setUsername(user.username);
       setName(user.name);
-      setPhone(user.phoneNumber);
     }
   }, [user]);
 
@@ -35,9 +31,7 @@ export function EditUserDialog({ open, onOpenChange, onSaved, user }: Props) {
       await userClient.updateUser({
         id: user.id,
         email,
-        username,
         name,
-        phoneNumber: phone,
       });
       toaster.create({ title: "User updated", type: "success" });
       onOpenChange(false);
@@ -69,19 +63,8 @@ export function EditUserDialog({ open, onOpenChange, onSaved, user }: Props) {
                   <Input value={email} onChange={(e) => setEmail(e.target.value)} />
                 </Field.Root>
                 <Field.Root>
-                  <Field.Label>Username</Field.Label>
-                  <Input
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                  />
-                </Field.Root>
-                <Field.Root>
                   <Field.Label>Name</Field.Label>
                   <Input value={name} onChange={(e) => setName(e.target.value)} />
-                </Field.Root>
-                <Field.Root>
-                  <Field.Label>Phone</Field.Label>
-                  <Input value={phone} onChange={(e) => setPhone(e.target.value)} />
                 </Field.Root>
               </Stack>
             </Dialog.Body>
@@ -93,7 +76,9 @@ export function EditUserDialog({ open, onOpenChange, onSaved, user }: Props) {
                 Save
               </Button>
             </Dialog.Footer>
-            <Dialog.CloseTrigger />
+            <Dialog.CloseTrigger asChild>
+              <CloseButton size="sm" />
+            </Dialog.CloseTrigger>
           </Dialog.Content>
         </Dialog.Positioner>
       </Portal>

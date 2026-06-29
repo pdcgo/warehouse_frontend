@@ -1,6 +1,7 @@
 import { useState } from "react";
 import {
   Button,
+  CloseButton,
   Dialog,
   Field,
   Input,
@@ -118,7 +119,9 @@ export function CreatePaymentDialog({ open, onOpenChange, teamId, onCreated }: P
                 Create
               </Button>
             </Dialog.Footer>
-            <Dialog.CloseTrigger />
+            <Dialog.CloseTrigger asChild>
+              <CloseButton size="sm" />
+            </Dialog.CloseTrigger>
           </Dialog.Content>
         </Dialog.Positioner>
       </Portal>

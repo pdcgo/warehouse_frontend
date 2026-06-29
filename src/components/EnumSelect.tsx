@@ -13,7 +13,7 @@ interface EnumSelectProps {
   width?: string;
 }
 
-// Generic numeric-enum dropdown (mirrors RoleSelect). Values are protobuf-es
+// Generic numeric-enum dropdown (mirrors RolePicker). Values are protobuf-es
 // enum numbers; strings are used internally because Select works on strings.
 export function EnumSelect({
   value,

@@ -4,6 +4,24 @@ import { createSystem, defaultConfig, defineConfig } from "@chakra-ui/react";
 // Used everywhere via colorPalette="brand". Retune the accent here only.
 const customConfig = defineConfig({
   theme: {
+    // Standardize form-control sizing: default to "sm" so buttons/inputs match the
+    // dense sm tables/nav. Set here once — do NOT sprinkle size="sm" per control.
+    // Explicit sizes (e.g. size="xs" on table row actions) still override.
+    // Cast to any: Chakra's generic recipe types only type `colorPalette` in
+    // defaultVariants (they can't infer per-recipe variant keys from a partial
+    // override). Runtime merge into the base recipe is unaffected.
+    recipes: {
+      button: { defaultVariants: { size: "sm" } },
+      input: { defaultVariants: { size: "sm" } },
+      textarea: { defaultVariants: { size: "sm" } },
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } as any,
+    slotRecipes: {
+      select: { defaultVariants: { size: "sm" } },
+      combobox: { defaultVariants: { size: "sm" } },
+      nativeSelect: { defaultVariants: { size: "sm" } },
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } as any,
     tokens: {
       colors: {
         brand: {

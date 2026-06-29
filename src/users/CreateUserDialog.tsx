@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Dialog, Field, Input, Portal, Stack } from "@chakra-ui/react";
+import { Button, CloseButton, Dialog, Field, Input, Portal, Stack } from "@chakra-ui/react";
 import { userClient } from "../lib/clients";
 import { toaster } from "../components/Toaster";
 import { errMessage } from "../lib/errors";
@@ -93,7 +93,9 @@ export function CreateUserDialog({ open, onOpenChange, onCreated }: Props) {
                 Create
               </Button>
             </Dialog.Footer>
-            <Dialog.CloseTrigger />
+            <Dialog.CloseTrigger asChild>
+              <CloseButton size="sm" />
+            </Dialog.CloseTrigger>
           </Dialog.Content>
         </Dialog.Positioner>
       </Portal>

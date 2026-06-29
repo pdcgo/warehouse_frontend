@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { Button, Dialog, Field, Input, Portal, Stack } from "@chakra-ui/react";
+import { Button, CloseButton, Dialog, Field, Input, Portal, Stack } from "@chakra-ui/react";
 import { userClient } from "../lib/clients";
 import { toaster } from "../components/Toaster";
 import { errMessage } from "../lib/errors";
-import { RoleSelect } from "../components/RoleSelect";
+import { RolePicker } from "../components/RolePicker";
 import { Role } from "../gen/role_base/v1/role_pb";
 
 interface Props {
@@ -90,7 +90,7 @@ export function TeamMemberDialog({
                 </Field.Root>
                 <Field.Root required>
                   <Field.Label>Role</Field.Label>
-                  <RoleSelect value={role} onChange={setRole} width="100%" />
+                  <RolePicker value={role} onChange={setRole} width="100%" />
                 </Field.Root>
               </Stack>
             </Dialog.Body>
@@ -102,7 +102,9 @@ export function TeamMemberDialog({
                 Save
               </Button>
             </Dialog.Footer>
-            <Dialog.CloseTrigger />
+            <Dialog.CloseTrigger asChild>
+              <CloseButton size="sm" />
+            </Dialog.CloseTrigger>
           </Dialog.Content>
         </Dialog.Positioner>
       </Portal>

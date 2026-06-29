@@ -3,7 +3,7 @@ import { PaymentStatus } from "../gen/invoice_iface/v2/v2_service_pb";
 import {
   BalanceChangeType,
   BalanceType,
-} from "../gen/invoice_iface/v2/v2_balance_pb";
+} from "../gen/invoice_iface/v2/v2_types_pb";
 import type { EnumOption } from "../components/EnumSelect";
 
 export const PAYMENT_STATUS_OPTIONS: EnumOption[] = [

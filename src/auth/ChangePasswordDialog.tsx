@@ -1,4 +1,4 @@
-import { Button, Dialog, Portal } from "@chakra-ui/react";
+import { Button, CloseButton, Dialog, Portal } from "@chakra-ui/react";
 import { ChangePasswordForm } from "../components/ChangePasswordForm";
 
 interface Props {
@@ -24,7 +24,9 @@ export function ChangePasswordDialog({ open, onOpenChange }: Props) {
                 <Button variant="outline">Cancel</Button>
               </Dialog.ActionTrigger>
             </Dialog.Footer>
-            <Dialog.CloseTrigger />
+            <Dialog.CloseTrigger asChild>
+              <CloseButton size="sm" />
+            </Dialog.CloseTrigger>
           </Dialog.Content>
         </Dialog.Positioner>
       </Portal>

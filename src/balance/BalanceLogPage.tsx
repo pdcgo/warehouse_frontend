@@ -1,13 +1,5 @@
 import { useState } from "react";
-import {
-  Button,
-  Field,
-  Heading,
-  Input,
-  Stack,
-  Text,
-  Textarea,
-} from "@chakra-ui/react";
+import { Button, Field, Input, Stack, Text, Textarea } from "@chakra-ui/react";
 import { invoiceClient } from "../lib/clients";
 import { toaster } from "../components/Toaster";
 import { errMessage } from "../lib/errors";
@@ -19,7 +11,7 @@ import { BALANCE_CHANGE_TYPE_OPTIONS, BALANCE_TYPE_OPTIONS } from "../lib/paymen
 import {
   BalanceChangeType,
   BalanceType,
-} from "../gen/invoice_iface/v2/v2_balance_pb";
+} from "../gen/invoice_iface/v2/v2_types_pb";
 
 export function BalanceLogPage() {
   const { currentTeam } = useTeam();
@@ -69,7 +61,6 @@ export function BalanceLogPage() {
 
   return (
     <Stack gap={6} maxW="lg">
-      <Heading size="lg">Balance Log</Heading>
       <Text color="fg.muted">
         Post a manual double-entry balance change from your team to another team.
       </Text>

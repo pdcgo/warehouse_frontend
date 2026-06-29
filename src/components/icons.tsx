@@ -49,11 +49,33 @@ export const UsersIcon = svgIcon(
   </>,
 );
 
+// Lucide "building-2" — a team/organization.
+export const TeamIcon = svgIcon(
+  <>
+    <path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z" />
+    <path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2" />
+    <path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2" />
+    <path d="M10 6h4" />
+    <path d="M10 10h4" />
+    <path d="M10 14h4" />
+    <path d="M10 18h4" />
+  </>,
+);
+
 // Lucide "user" (single)
 export const UserIcon = svgIcon(
   <>
     <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
     <circle cx="12" cy="7" r="4" />
+  </>,
+);
+
+// Lucide "users-round" — the global "all users" directory.
+export const AllUsersIcon = svgIcon(
+  <>
+    <path d="M18 21a8 8 0 0 0-16 0" />
+    <circle cx="10" cy="8" r="5" />
+    <path d="M22 20c0-3.37-2-6.5-4-8a5 5 0 0 0-.45-8.3" />
   </>,
 );
 
@@ -100,6 +122,9 @@ export const InvoiceIcon = svgIcon(
 
 // Lucide "chevron-down" — expand/collapse indicator
 export const ChevronIcon = svgIcon(<path d="m6 9 6 6 6-6" />);
+
+// Lucide "chevron-left" — back navigation
+export const ChevronLeftIcon = svgIcon(<path d="m15 18-6-6 6-6" />);
 
 // Lucide "lock" — password field
 export const LockIcon = svgIcon(
@@ -205,6 +230,14 @@ export const WarningIcon = svgIcon(
 // Lucide "check" — selected indicator
 export const CheckIcon = svgIcon(<path d="M20 6 9 17l-5-5" />);
 
+// Lucide "plus" — add
+export const PlusIcon = svgIcon(
+  <>
+    <path d="M5 12h14" />
+    <path d="M12 5v14" />
+  </>,
+);
+
 // Lucide "chevrons-left" — collapse the sidebar
 export const ChevronsLeftIcon = svgIcon(
   <>
@@ -218,6 +251,15 @@ export const ChevronsRightIcon = svgIcon(
   <>
     <path d="m6 17 5-5-5-5" />
     <path d="m13 17 5-5-5-5" />
+  </>,
+);
+
+// Lucide "home" — home / welcome landing
+export const HomeIcon = svgIcon(
+  <>
+    <path d="M3 9.5 12 3l9 6.5" />
+    <path d="M5 10v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V10" />
+    <path d="M9 21v-6a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v6" />
   </>,
 );
 
@@ -245,5 +287,61 @@ export const OutboundIcon = svgIcon(
     <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
     <polyline points="17 8 12 3 7 8" />
     <line x1="12" x2="12" y1="3" y2="15" />
+  </>,
+);
+
+// Lucide "shopping-cart" — order
+export const OrderIcon = svgIcon(
+  <>
+    <circle cx="8" cy="21" r="1" />
+    <circle cx="19" cy="21" r="1" />
+    <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
+  </>,
+);
+
+// Lucide "layers" — inventory
+export const InventoryIcon = svgIcon(
+  <>
+    <path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z" />
+    <path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65" />
+    <path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65" />
+  </>,
+);
+
+// Lucide "layout-grid" — placements (rack slots)
+export const PlacementsIcon = svgIcon(
+  <>
+    <rect width="7" height="7" x="3" y="3" rx="1" />
+    <rect width="7" height="7" x="14" y="3" rx="1" />
+    <rect width="7" height="7" x="14" y="14" rx="1" />
+    <rect width="7" height="7" x="3" y="14" rx="1" />
+  </>,
+);
+
+// Lucide "clipboard-check" — opname (stock-take)
+export const OpnameIcon = svgIcon(
+  <>
+    <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
+    <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
+    <path d="m9 14 2 2 4-4" />
+  </>,
+);
+
+// Lucide "package-plus" — restock (incoming new stock)
+export const RestockIcon = svgIcon(
+  <>
+    <path d="M16 16h6" />
+    <path d="M19 13v6" />
+    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l2-1.14" />
+    <path d="m3.3 7 8.7 5 8.7-5" />
+    <path d="M12 22V12" />
+  </>,
+);
+
+// Lucide "undo-2" — return (stock coming back in)
+export const ReturnIcon = svgIcon(
+  <>
+    <path d="M9 14 4 9l5-5" />
+    <path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H10" />
   </>,
 );
